@@ -1,11 +1,12 @@
 # LillyBluetoothHeadset
-BluetoothHeadset, microphone
 
-## **ble-control** branch
-ble volume control command
+## function
+- Bluetooth Headset, A2DP
+- Bluetooth Microphone (Bluetooth SCO)
+- Adjusting Audio Volume with Voice Commands Using STT
+
 
 ## **Using**
-- [**RxBle**](https://github.com/Polidea/RxAndroidBle)
 - [**sherpa-onnx**](https://github.com/k2-fsa/sherpa-onnx)
   > stt, tts model
 
@@ -14,5 +15,3 @@ ble volume control command
 <img src = "https://github.com/DDANGEUN/LillyBluetoothHeadset/blob/ble-control/preview/BluetoothHeadset_STT.gif" width="30%">
 
 
-## Check Out Also
-- [**RxBle_MVVM**](https://github.com/DDANGEUN/RxBle_MVVM)  

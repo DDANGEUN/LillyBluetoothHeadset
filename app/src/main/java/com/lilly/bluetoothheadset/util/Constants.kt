@@ -1,4 +1,0 @@
-package com.lilly.bluetoothheadset.util
-
-const val SERVICE_STRING = "BC2F4CC6-AAEF-4351-9034-D66268E328F0"
-const val CHARA_STRING = "818AE306-9C5B-448D-B51A-7ADD6A5D314D"

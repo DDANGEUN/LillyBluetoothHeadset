@@ -2,13 +2,10 @@ package com.lilly.bluetoothheadset.service
 import com.lilly.bluetoothheadset.MyApplication
 import com.lilly.bluetoothheadset.R
 import com.lilly.bluetoothheadset.audio.AudioDeviceManager
-import com.lilly.bluetoothheadset.ble.BleManager
 import com.lilly.bluetoothheadset.sherpa.OfflineRecognizer
 import com.lilly.bluetoothheadset.sherpa.OfflineTts
 import com.lilly.bluetoothheadset.sherpa.OnlineRecognizer
 import com.lilly.bluetoothheadset.ui.MainActivity
-import com.lilly.bluetoothheadset.util.CHARA_STRING
-import com.lilly.bluetoothheadset.util.Utils
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -19,7 +16,6 @@ import android.os.*
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
-import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,7 +25,6 @@ class HeadsetService : LifecycleService() {
 
     private val TAG = "HeadsetService"
 
-    private var bleManager: BleManager = BleManager.get()
     private var audioDeviceManager: AudioDeviceManager = AudioDeviceManager.get()
 
     private var samplesBuffer = arrayListOf<FloatArray>()
@@ -40,9 +35,6 @@ class HeadsetService : LifecycleService() {
 
     private val localBinder: IBinder = LocalBinder()
     private var isServiceRunning = false
-
-    private var mWriteDisposable: Disposable? = null
-
 
     private var generate: Boolean = true
     private var play: Boolean = false
@@ -191,25 +183,7 @@ class HeadsetService : LifecycleService() {
         }.start()
     }
 
-    private fun volume_down(count: Int) =
-        repeat(count) {
-            mWriteDisposable = bleManager.writeData(CHARA_STRING, Utils.stringToByteArray("VOLUME 10 DOWN"))
-                ?.subscribe({ writeBytes ->
-                    Log.d("writtenBytes", "VOLUME 10 DOWN")
-                }, { throwable ->
-                    throwable.printStackTrace()
-                })
-        }
 
-    private fun volume_up(count: Int) =
-        repeat(count) {
-            mWriteDisposable = bleManager.writeData(CHARA_STRING, Utils.stringToByteArray("VOLUME 10 UP"))
-                ?.subscribe({ writeBytes ->
-                    Log.d("writtenBytes", "VOLUME 10 UP")
-                }, { throwable ->
-                    throwable.printStackTrace()
-                })
-        }
 
 
     private fun commandProcess(tts: OfflineTts, text: String){
@@ -217,13 +191,11 @@ class HeadsetService : LifecycleService() {
         if(text.contains("소리") || text.contains("사운드") || text.contains("싸운드") || text.contains("볼륨")){
             if(text.contains("내려") || text.contains("줄여")|| text.contains("쭐여") || text.contains("낮춰") ||  text.contains("낮게")){
                 generateAudio(tts, "소리를 줄입니다.")
-                //audioDeviceManager.decreaseVolume()
-                volume_down(3)
+                audioDeviceManager.decreaseVolume()
             }
             else if(text.contains("올려") || text.contains("울려") ||text.contains("키워") || text.contains("높여")|| text.contains("크게")){
                 generateAudio(tts, "소리를 키웁니다.")
-                //audioDeviceManager.increaseVolume()
-                volume_up(3)
+                audioDeviceManager.increaseVolume()
             }
         }
     }
@@ -375,6 +347,5 @@ class HeadsetService : LifecycleService() {
             stopForeground(true)
             isServiceRunning = false
         }
-        mWriteDisposable?.dispose()
     }
 }

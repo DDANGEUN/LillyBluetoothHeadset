@@ -1,7 +1,6 @@
 package com.lilly.bluetoothheadset
 
 import com.lilly.bluetoothheadset.audio.AudioDeviceManager
-import com.lilly.bluetoothheadset.ble.BleManager
 import com.lilly.bluetoothheadset.bluetoothheadset.BluetoothHeadsetManager
 import android.app.Application
 import android.content.Context
@@ -30,6 +29,5 @@ class MyApplication : Application() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         AudioDeviceManager.initialize()
         BluetoothHeadsetManager.initialize()
-        BleManager.initialize()
     }
 }

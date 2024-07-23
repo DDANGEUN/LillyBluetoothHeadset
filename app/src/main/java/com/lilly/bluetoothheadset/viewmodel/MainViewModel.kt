@@ -2,7 +2,6 @@ package com.lilly.bluetoothheadset.viewmodel
 
 import com.lilly.bluetoothheadset.*
 import com.lilly.bluetoothheadset.bluetoothheadset.BluetoothHeadsetManager.HeadsetState
-import com.lilly.bluetoothheadset.ble.BleManager
 import com.lilly.bluetoothheadset.bluetoothheadset.BluetoothHeadsetConnectionListener
 import com.lilly.bluetoothheadset.bluetoothheadset.BluetoothHeadsetManager
 import com.lilly.bluetoothheadset.service.HeadsetService
@@ -20,8 +19,6 @@ import android.os.IBinder
 import android.util.Log
 import androidx.compose.runtime.*
 import androidx.lifecycle.*
-import com.polidea.rxandroidble2.RxBleConnection
-import com.polidea.rxandroidble2.RxBleDevice
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
@@ -34,7 +31,6 @@ const val TAG = "MainViewModel"
 class MainViewModel : IMainViewModel() {
 
     private val bluetoothHeadsetManager = BluetoothHeadsetManager.get()
-    private val bleManager = BleManager.get()
 
     private val _eventFlow = MutableSharedFlow<Event>()
     override val eventFlow = _eventFlow.asSharedFlow()
@@ -158,57 +154,10 @@ class MainViewModel : IMainViewModel() {
 //        }
     }
 
-    private val connectionStateListener: (RxBleDevice, RxBleConnection.RxBleConnectionState) -> Unit = { device, connectionState ->
-        when(connectionState){
-            RxBleConnection.RxBleConnectionState.CONNECTED -> {
-                Log.d("RxBle", "CONNECTED")
-            }
-            RxBleConnection.RxBleConnectionState.CONNECTING -> {
-                Log.d("RxBle", "CONNECTING")
-            }
-            RxBleConnection.RxBleConnectionState.DISCONNECTED -> {
-                Log.d("RxBle", "DISCONNECTED")
-            }
-            RxBleConnection.RxBleConnectionState.DISCONNECTING -> {
-                Log.d("RxBle", "DISCONNECTING")
-            }
-        }
-    }
-
-    private fun bleConnect(){
-        var headSetDevice: BluetoothDevice? = null
-        bluetoothHeadsetManager.connectedDevice()?.forEach { device->
-            device.uuids.forEach { uuid->
-                Log.d("headsetDevices", uuid.uuid.toString())
-                if(uuid.uuid.toString()=="0000111d-d102-11e1-9b23-00025b00a5a5") {
-                    headSetDevice = device
-                    return@forEach
-                }
-            }
-        }
-        headSetDevice?.let { bleManager.connectDevice(it, connectionStateListener) }
-    }
-    private fun bleDisconnect() = bleManager.disconnectDevice()
-
-
     private fun observeBluetoothHeadsetManager() {
         viewModelScope.launch {
             bluetoothHeadsetManager.headsetStateValue.collect { state ->
                 _headsetState.value = state
-                when (_headsetState.value){
-                    HeadsetState.Connected -> {
-                        bleConnect()
-                    }
-                    HeadsetState.AudioActivated -> {
-                        bleConnect()
-                    }
-                    HeadsetState.Disconnected-> {
-                        bleDisconnect()
-                    }
-                    else->{
-
-                    }
-                }
             }
         }
     }
@@ -351,6 +300,7 @@ class MainViewModel : IMainViewModel() {
             when(state){
                 BluetoothProfile.STATE_CONNECTED->{
                     setInProgress(false, "")
+                    _asrTxt.value = ""
                     _scanedDevices.value = emptySet()
                     _pairedDevices.value = bluetoothHeadsetManager.getPairedDevices()
                     //Utils.showNotification("연결되었습니다.")
@@ -439,6 +389,8 @@ class MainViewModel : IMainViewModel() {
 
 
     override fun onClickDisconnect() {
+        if(_recording.value)
+            stopRecording()
         bluetoothHeadsetManager.disconnectDevice()
     }
 
