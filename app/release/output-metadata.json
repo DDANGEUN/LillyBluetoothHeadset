@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "ai.ableai.bhs",
+  "applicationId": "com.lilly.bluetoothheadset",
   "variantName": "release",
   "elements": [
     {
@@ -13,8 +13,8 @@
       "attributes": [],
       "versionCode": 1,
       "versionName": "1.0",
+    },
       "outputFile": "app-release.apk"
-    }
   ],
   "elementType": "File"
 }

@@ -5,12 +5,12 @@ plugins {
 
 
 android {
-    namespace "ai.ableai.bhs"
+    namespace "com.lilly.bluetoothheadset"
     compileSdkVersion 34
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "ai.ableai.bhs"
+        applicationId "com.lilly.bluetoothheadset"
         minSdkVersion 24
         targetSdkVersion 34
         versionCode 1
