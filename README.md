@@ -1,0 +1,2 @@
+# BluetoothHeadset
+BluetoothHeadset, mic, sherpa
