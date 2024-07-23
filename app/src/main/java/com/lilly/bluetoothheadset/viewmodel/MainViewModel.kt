@@ -351,6 +351,7 @@ class MainViewModel : IMainViewModel() {
             when(state){
                 BluetoothProfile.STATE_CONNECTED->{
                     setInProgress(false, "")
+                    _asrTxt.value = ""
                     _scanedDevices.value = emptySet()
                     _pairedDevices.value = bluetoothHeadsetManager.getPairedDevices()
                     //Utils.showNotification("연결되었습니다.")
@@ -439,6 +440,8 @@ class MainViewModel : IMainViewModel() {
 
 
     override fun onClickDisconnect() {
+        if(_recording.value)
+            stopRecording()
         bluetoothHeadsetManager.disconnectDevice()
     }
 

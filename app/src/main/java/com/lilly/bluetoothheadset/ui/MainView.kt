@@ -186,8 +186,9 @@ fun MainView(
                             }
 
                         }
-                        BluetoothHeadsetManager.HeadsetState.Connected -> viewModel.onClickDisconnect()
-                        else -> {}
+                        else -> {
+                            viewModel.onClickDisconnect()
+                        }
                     }
                 },
                 colors = ButtonDefaults.buttonColors(

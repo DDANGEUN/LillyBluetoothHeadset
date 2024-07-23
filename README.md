@@ -4,6 +4,11 @@ BluetoothHeadset, microphone
 ## **ble-control** branch
 ble volume control command
 
+## function
+- Bluetooth Headset, A2DP
+- Bluetooth Microphone (Bluetooth SCO)
+- Adjusting Audio Volume with BLE
+
 ## **Using**
 - [**RxBle**](https://github.com/Polidea/RxAndroidBle)
 - [**sherpa-onnx**](https://github.com/k2-fsa/sherpa-onnx)
