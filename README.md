@@ -5,9 +5,9 @@ BluetoothHeadset, microphone
 ble volume control command
 
 ## **Using**
-    - [**RxBle**](https://github.com/Polidea/RxAndroidBle)
-    - [**sherpa-onnx**](https://github.com/k2-fsa/sherpa-onnx)
-      > stt, tts model
+- [**RxBle**](https://github.com/Polidea/RxAndroidBle)
+- [**sherpa-onnx**](https://github.com/k2-fsa/sherpa-onnx)
+  > stt, tts model
 
 
 ## Preview
