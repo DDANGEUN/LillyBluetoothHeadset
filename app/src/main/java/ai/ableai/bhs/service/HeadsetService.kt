@@ -217,13 +217,13 @@ class HeadsetService : LifecycleService() {
         if(text.contains("소리") || text.contains("사운드") || text.contains("싸운드") || text.contains("볼륨")){
             if(text.contains("내려") || text.contains("줄여")|| text.contains("쭐여") || text.contains("낮춰") ||  text.contains("낮게")){
                 generateAudio(tts, "소리를 줄입니다.")
-                audioDeviceManager.decreaseVolume()
-                //volume_down(3)
+                //audioDeviceManager.decreaseVolume()
+                volume_down(3)
             }
             else if(text.contains("올려") || text.contains("울려") ||text.contains("키워") || text.contains("높여")|| text.contains("크게")){
                 generateAudio(tts, "소리를 키웁니다.")
-                audioDeviceManager.increaseVolume()
-                //volume_up(3)
+                //audioDeviceManager.increaseVolume()
+                volume_up(3)
             }
         }
     }
@@ -254,9 +254,6 @@ class HeadsetService : LifecycleService() {
             val bufferSize = (interval * sampleRateInHz).toInt() // in samples
             val buffer = ShortArray(bufferSize)
 
-            val channel = 1
-            var lastTranscriptionTime = System.currentTimeMillis()
-            var inferencing = false
             while (recording) {
                 val readSize = audioRecord.read(buffer, 0, buffer.size) ?: 0
                 if (readSize != null && readSize > 0) {

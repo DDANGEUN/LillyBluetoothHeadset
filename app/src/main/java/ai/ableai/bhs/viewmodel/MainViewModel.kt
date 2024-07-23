@@ -35,7 +35,6 @@ const val TAG = "MainViewModel"
 class MainViewModel : IMainViewModel() {
 
     private val bluetoothHeadsetManager = BluetoothHeadsetManager.get()
-    private val audioManager = AudioDeviceManager.get()
     private val bleManager = BleManager.get()
 
     private val _eventFlow = MutableSharedFlow<Event>()
@@ -199,13 +198,13 @@ class MainViewModel : IMainViewModel() {
                 _headsetState.value = state
                 when (_headsetState.value){
                     HeadsetState.Connected -> {
-                        //bleConnect()
+                        bleConnect()
                     }
                     HeadsetState.AudioActivated -> {
-                        //bleConnect()
+                        bleConnect()
                     }
                     HeadsetState.Disconnected-> {
-                        //bleDisconnect()
+                        bleDisconnect()
                     }
                     else->{
 
