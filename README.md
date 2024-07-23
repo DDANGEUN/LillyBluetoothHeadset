@@ -12,6 +12,6 @@
 
 
 ## Preview
-<img src = "https://github.com/DDANGEUN/LillyBluetoothHeadset/blob/ble-control/preview/BluetoothHeadset_STT.gif" width="30%">
+<img src = "https://github.com/DDANGEUN/LillyBluetoothHeadset/blob/main/preview/BluetoothHeadset_STT.gif" width="30%">
 
 
