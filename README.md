@@ -1,0 +1,2 @@
+# LillyBluetoothHeadset
+BluetoothHeadset, mic, sherpa

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BluetoothHeadset_STT</string>
+    <string name="connect">connect</string>
+    <string name="disconnect">disconnect</string>
+</resources>
