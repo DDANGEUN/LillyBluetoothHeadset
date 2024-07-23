@@ -11,7 +11,7 @@ ble volume control command
 
 
 ## Preview
-<img src = "https://github.com/DDANGEUN/RxBle_MVVM/blob/main/preview/preview.gif" width="30%">
+<img src = "https://github.com/DDANGEUN/LillyBluetoothHeadset/main/preview/BluetoothHeadset_STT.gif" width="30%">
 
 
 ## Check Out Also
